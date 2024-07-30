@@ -5,6 +5,7 @@ import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
 import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
 import Header from "@/components/Header";
 import { Flex, Text, Button } from '@radix-ui/themes';
+import { redirect } from "next/navigation";
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
@@ -17,7 +18,7 @@ export default async function Index() {
       return false;
     }
   };
-
+  return redirect("/login");
   const isSupabaseConnected = canInitSupabaseClient();
 
   return (
@@ -31,10 +32,7 @@ export default async function Index() {
 
       <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
         <Header />
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
+      
       </div>
 
       <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">

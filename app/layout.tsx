@@ -21,8 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-      <Theme>
-
+      <Theme accentColor="blue" grayColor="sand" radius="large" scaling="95%">
+  
         <main className="min-h-screen flex flex-col items-center">
           {children}
         </main>
