@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
-import { Flex, Text, Button, Em, Strong, Kbd } from '@radix-ui/themes';
+
 
 export default function Login({
   searchParams,
@@ -94,7 +94,8 @@ export default function Login({
             </p>
           )}
         </form>
-        <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+        </div>
+        <footer className="w-full border-t p-8 flex justify-center text-center text-xs">
         <p>
           Powered by{" "}
           <a
@@ -107,7 +108,7 @@ export default function Login({
           </a>
         </p>
       </footer>
-      </div></>
+      </>
    
   );
 }
