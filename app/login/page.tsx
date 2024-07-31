@@ -61,7 +61,7 @@ export default function Login({
             Email
           </label>
           <input
-            className="rx-4 py-2 bg-inherit border mb-6"
+            className="px-4 py-2 bg-inherit border mb-6"
             name="email"
             placeholder="you@example.com"
             required />
@@ -76,7 +76,7 @@ export default function Login({
             required />
           <SubmitButton
             formAction={signIn}
-            className="bg-blue-700 px-4 py-2 text-foreground mb-2"
+            className="order rounded-md bg-blue-700 px-4 py-2 text-white mb-2"
             pendingText="Signing In..."
           >
             Sign In
