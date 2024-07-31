@@ -81,13 +81,7 @@ export default function Login({
           >
             Sign In
           </SubmitButton>
-          <SubmitButton
-            formAction={signUp}
-            className="border rounded-md px-4 py-2 text-foreground mb-2"
-            pendingText="Signing Up..."
-          >
-            Sign Up
-          </SubmitButton>
+         
           {searchParams?.message && (
             <p className="mt-4 p-4   text-foreground text-center">
               {searchParams.message}
