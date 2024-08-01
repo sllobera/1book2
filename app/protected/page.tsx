@@ -18,13 +18,13 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
+    <div className="flex-1 w-full flex flex-col gap-20 items-center h-screen">
       <div className="w-full">
       
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+        <nav className="w-full flex justify-center bg-white border-b border-b-foreground/10 h-16 fixed top-0" >
           <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           
-            <AuthButton />
+      {/**  <AuthButton />*/ }
           </div>
         </nav>
       </div>
@@ -38,7 +38,7 @@ export default async function ProtectedPage() {
         </main>
       </div>
 
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+      <footer className="w-full border-t bg-white sticky bottom-0 p-4 flex justify-center text-center text-xs">
         <p>
           Powered by{" "}
           <a
@@ -47,7 +47,7 @@ export default async function ProtectedPage() {
             className="font-bold hover:underline"
             rel="noreferrer"
           >
-            Supabase
+            KAOS
           </a>
         </p>
       </footer>
