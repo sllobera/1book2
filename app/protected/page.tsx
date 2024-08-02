@@ -1,109 +1,101 @@
  "use client"
 
-import DeployButton from "@/components/DeployButton";
-import AuthButton from "@/components/AuthButton";
 import { DashboardIcon, MagnifyingGlassIcon, RowsIcon } from '@radix-ui/react-icons'
 import { createClient } from "@/utils/supabase/client";
-import FetchDataSteps from "@/components/tutorial/FetchDataSteps";
-import Header from "@/components/Header";
-import { redirect } from "next/navigation";
-import Page from "@/app/protected/db";
-import { useState } from 'react';
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import { TextAlignLeftIcon, TextAlignCenterIcon, TextAlignRightIcon } from '@radix-ui/react-icons';
- 
 
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { IconButton } from "@radix-ui/themes";
+import { redirect } from "next/navigation";
+
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
+
 import React from "react";
-const people = [
-  {
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },{
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-]
+import Grid from './grid';
 
 export default   function ProtectedPage() {
   const supabase = createClient();
   const [dis, setValue] = React.useState('left');
   const user = supabase.auth.getUser();
-
+  const people = [
+    {
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },
+    {
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },{
+      name: 'Leslie Alexander',
+      email: 'leslie.alexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },
+  ]
   if (!user) {
     return redirect("/login");
   }
@@ -147,26 +139,15 @@ export default   function ProtectedPage() {
       </div>
 
       <div className="flex-1 flex flex-col gap-20  p-3 w-full">
+      <main className="flex-1 flex flex-col gap-6 w-full">
+      <div className="grid  gap-4 grid-cols-2 md:grid-cols-4 ">
    {dis =="grid" &&
-        <main className="flex-1 flex flex-col gap-6 w-full">
-        <div className="grid  gap-4 grid-cols-2 md:grid-cols-4 ">
-      {people.map((person) => (
-        <div
-          key={person.email}
-          className="relative flex border-l-4 border-blue-400 items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 py-1 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
-        >
-         
-          <div className="min-w-0 flex-1">
-            <a href="#" className="focus:outline-none">
-              <span aria-hidden="true" className="absolute inset-0" />
-              <p className="text-sm font-medium text-gray-900">{person.name}</p>
-              <p className="truncate text-sm text-gray-500">{person.role}</p>
-            </a>
-          </div>
-        </div>
-      ))}
-    </div>
-        </main>}
+  people.map((person) => (
+<Grid name={person.name} role={person.role}/>
+))}
+
+      
+      </div></main>
       </div>
 {/* <div className="bg-white min-h-32 fixed bottom-12 w-full"></div>*/}
       <footer className="w-full border-t bg-white sticky drop-shadow-md  bottom-0 p-4 flex justify-center text-center text-xs">

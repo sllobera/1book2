@@ -3,24 +3,15 @@ import "./globals.css";
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 
-import type { Viewport } from 'next'
- 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  // Also supported by less commonly used
-  // interactiveWidget: 'resizes-visual',
-}
+
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "1Book ",
-  description: "Accounting made easy",
+  title: "KAOS ",
+  description: "Dashboard",
 };
 
 export default function RootLayout({
