@@ -48,8 +48,9 @@ button {
 }
 .ToggleGroupItem:focus {
   position: relative;
-  box-shadow: 0 0 0 2px black;
+  box-shadow: 0 0 0 0px black;
 }
+
 @layer base {
   :root {
     --background: 200 20% 98%;
