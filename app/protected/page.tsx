@@ -1,9 +1,9 @@
-
+ "use client"
 
 import DeployButton from "@/components/DeployButton";
 import AuthButton from "@/components/AuthButton";
 import { DashboardIcon, MagnifyingGlassIcon, RowsIcon } from '@radix-ui/react-icons'
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 import FetchDataSteps from "@/components/tutorial/FetchDataSteps";
 import Header from "@/components/Header";
 import { redirect } from "next/navigation";
@@ -15,6 +15,7 @@ import { TextAlignLeftIcon, TextAlignCenterIcon, TextAlignRightIcon } from '@rad
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { IconButton } from "@radix-ui/themes";
+import React from "react";
 const people = [
   {
     name: 'Leslie Alexander',
@@ -98,12 +99,10 @@ const people = [
   },
 ]
 
-export default async function ProtectedPage() {
+export default   function ProtectedPage() {
   const supabase = createClient();
- 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const [dis, setValue] = React.useState('left');
+  const user = supabase.auth.getUser();
 
   if (!user) {
     return redirect("/login");
@@ -130,22 +129,25 @@ export default async function ProtectedPage() {
     type="single"
     defaultValue="center"
     aria-label="Text alignment"
+    onValueChange={(value) => {
+      if (value) setValue(value);
+    }}
   >
-    <ToggleGroup.Item className="ToggleGroupItem size-6" value="left" aria-label="Left aligned">
+    <ToggleGroup.Item className="ToggleGroupItem size-6" value="list" aria-label="Left aligned">
       <RowsIcon />
     </ToggleGroup.Item>
-    <ToggleGroup.Item className="ToggleGroupItem size-6" value="center" aria-label="Center aligned">
+    <ToggleGroup.Item className="ToggleGroupItem size-6" value="grid" aria-label="Center aligned">
       <DashboardIcon />
     </ToggleGroup.Item>
     
   </ToggleGroup.Root>
-  
+   
         </div>
       </nav></header>
       </div>
 
       <div className="flex-1 flex flex-col gap-20  p-3 w-full">
-       
+   {dis =="grid" &&
         <main className="flex-1 flex flex-col gap-6 w-full">
         <div className="grid  gap-4 grid-cols-2 md:grid-cols-4 ">
       {people.map((person) => (
@@ -164,7 +166,7 @@ export default async function ProtectedPage() {
         </div>
       ))}
     </div>
-        </main>
+        </main>}
       </div>
 {/* <div className="bg-white min-h-32 fixed bottom-12 w-full"></div>*/}
       <footer className="w-full border-t bg-white sticky drop-shadow-md  bottom-0 p-4 flex justify-center text-center text-xs">
