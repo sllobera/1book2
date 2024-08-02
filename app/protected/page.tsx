@@ -131,7 +131,7 @@ export default async function ProtectedPage() {
       <div className="flex-1 flex flex-col gap-20  p-3 w-full">
        
         <main className="flex-1 flex flex-col gap-6 w-full">
-        <div className="grid  gap-4  lg:grid-cols-4 sm:grid-cols-3">
+        <div className="grid  gap-4 grid-cols-2 md:grid-cols-4 ">
       {people.map((person) => (
         <div
           key={person.email}
@@ -152,8 +152,8 @@ export default async function ProtectedPage() {
     </div>
         </main>
       </div>
-<div className="bg-white min-h-32 fixed bottom-12 w-full"></div>
-      <footer className="w-full border-t bg-white sticky bottom-0 p-4 flex justify-center text-center text-xs">
+{/* <div className="bg-white min-h-32 fixed bottom-12 w-full"></div>*/}
+      <footer className="w-full border-t bg-white sticky drop-shadow-md  bottom-0 p-4 flex justify-center text-center text-xs">
         <p>
           Powered by{" "}
           <a
