@@ -8,6 +8,7 @@ import { Flex, Text, Button } from '@radix-ui/themes';
 import { redirect } from "next/navigation";
 
 export default async function Index() {
+  const supabase = createClient();
   const canInitSupabaseClient = () => {
     // This function is just for the interactive tutorial.
     // Feel free to remove it once you have Supabase connected.
@@ -18,7 +19,11 @@ export default async function Index() {
       return false;
     }
   };
-  return redirect("/login");
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return user? redirect("protected"):redirect("/login");
   const isSupabaseConnected = canInitSupabaseClient();
 
   return (
