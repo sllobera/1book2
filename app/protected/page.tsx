@@ -9,6 +9,9 @@ import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 import Page from "@/app/protected/db";
 import { useState } from 'react';
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import { TextAlignLeftIcon, TextAlignCenterIcon, TextAlignRightIcon } from '@radix-ui/react-icons';
+ 
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { IconButton } from "@radix-ui/themes";
@@ -120,9 +123,22 @@ export default async function ProtectedPage() {
         </div>
          
         <div className="flex items-start lg:flex lg:flex-1 lg:justify-end">
-   <RowsIcon className="mr-2 size-6"/>
-   <DashboardIcon className="size-6"/>
- 
+   
+    
+   <ToggleGroup.Root
+    className="ToggleGroup"
+    type="single"
+    defaultValue="center"
+    aria-label="Text alignment"
+  >
+    <ToggleGroup.Item className="ToggleGroupItem size-6" value="left" aria-label="Left aligned">
+      <RowsIcon />
+    </ToggleGroup.Item>
+    <ToggleGroup.Item className="ToggleGroupItem size-6" value="center" aria-label="Center aligned">
+      <DashboardIcon />
+    </ToggleGroup.Item>
+    
+  </ToggleGroup.Root>
   
         </div>
       </nav></header>
