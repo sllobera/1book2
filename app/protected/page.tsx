@@ -111,7 +111,7 @@ export default async function ProtectedPage() {
       <div className="w-full">
       
       <header className="bg-white w-full">
-      <nav aria-label="Global" className="mx-auto w-full z-40  bg-white top-0 fixed flex  border-b  items-center justify-between p-6 lg:px-8">
+      <nav aria-label="Global" className="mx-auto drop-shadow-md w-full z-40  bg-white top-0 fixed flex  border-b  items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">KAOS</span>
@@ -131,7 +131,7 @@ export default async function ProtectedPage() {
       <div className="flex-1 flex flex-col gap-20  p-3 w-full">
        
         <main className="flex-1 flex flex-col gap-6 w-full">
-        <div className="grid grid-cols-4 gap-4 sm:grid-cols-4">
+        <div className="grid  gap-4  lg:grid-cols-4 sm:grid-cols-3">
       {people.map((person) => (
         <div
           key={person.email}
