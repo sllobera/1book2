@@ -6,7 +6,7 @@ import { createClient } from "@/utils/supabase/client";
 import { redirect } from "next/navigation";
 
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-
+import * as Toggle from '@radix-ui/react-toggle';
 import React from "react";
 import Grid from './grid';
 import List from './list';
@@ -14,6 +14,7 @@ import List from './list';
 export default   function ProtectedPage() {
   const supabase = createClient();
   const [dis, setValue] = React.useState('list');
+  const [pep, setPep] = React.useState('addperson');
   const user = supabase.auth.getUser();
   const people = [
     {
@@ -101,6 +102,8 @@ export default   function ProtectedPage() {
     return redirect("/login");
   }
 
+  
+
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center h-screen">
       <div className="w-full">
@@ -116,25 +119,13 @@ export default   function ProtectedPage() {
          
         <div className="flex items-start lg:flex lg:flex-1 lg:justify-end">
    
+        <Toggle.Root className="Toggle mr-2" aria-label="Toggle italic">
+    <BarChartIcon  />
+  </Toggle.Root>
+  <Toggle.Root className="Toggle mr-10" aria-label="Toggle italic">
+  <PersonIcon />
+  </Toggle.Root>
     
-        <ToggleGroup.Root
-    className="ToggleGroup mr-10"
-    type="single"
-    value={dis}
-    defaultValue="list"
-    aria-label="Text alignment"
-    onValueChange={(value) => {
-      if (value) setValue(value);
-    }}
-  >
-    <ToggleGroup.Item className="ToggleGroupItem size-6" value="chrt" aria-label="Left aligned">
-      <BarChartIcon />
-    </ToggleGroup.Item>
-    <ToggleGroup.Item className="ToggleGroupItem size-6" value="addPerson" aria-label="Center aligned">
-      <PersonIcon />
-    </ToggleGroup.Item>
-    
-  </ToggleGroup.Root>
    
     
         <ToggleGroup.Root
