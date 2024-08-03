@@ -125,10 +125,7 @@ export default   function ProtectedPage() {
   <Toggle.Root className="Toggle mr-10" aria-label="Toggle italic">
   <PersonIcon />
   </Toggle.Root>
-    
-   
-    
-        <ToggleGroup.Root
+     <ToggleGroup.Root
     className="ToggleGroup"
     type="single"
     value={dis}
@@ -153,7 +150,7 @@ export default   function ProtectedPage() {
 
       <div className="flex-1 flex flex-col gap-20  pt-3 w-full">
       <main className="flex-1 flex flex-col gap-6 w-full">
-     { dis =="grid" && <div className="grid  gap-4 grid-cols-2 md:grid-cols-4 ">
+     { dis =="grid" && <div className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
   
  { people.map((person) => (
 <Grid name={person.name} role={person.role}/>
