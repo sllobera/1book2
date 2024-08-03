@@ -13,7 +13,7 @@ import List from './list';
 
 export default   function ProtectedPage() {
   const supabase = createClient();
-  const [dis, setValue] = React.useState('left');
+  const [dis, setValue] = React.useState('list');
   const user = supabase.auth.getUser();
   const people = [
     {
@@ -120,7 +120,8 @@ export default   function ProtectedPage() {
    <ToggleGroup.Root
     className="ToggleGroup"
     type="single"
-    defaultValue="center"
+    value={dis}
+    defaultValue="list"
     aria-label="Text alignment"
     onValueChange={(value) => {
       if (value) setValue(value);
