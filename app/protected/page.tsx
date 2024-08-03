@@ -1,6 +1,6 @@
  "use client"
 
-import { DashboardIcon, MagnifyingGlassIcon, RowsIcon } from '@radix-ui/react-icons'
+import { DashboardIcon,BarChartIcon ,RowsIcon ,PersonIcon} from '@radix-ui/react-icons'
 import { createClient } from "@/utils/supabase/client";
 
 import { redirect } from "next/navigation";
@@ -117,7 +117,27 @@ export default   function ProtectedPage() {
         <div className="flex items-start lg:flex lg:flex-1 lg:justify-end">
    
     
-   <ToggleGroup.Root
+        <ToggleGroup.Root
+    className="ToggleGroup mr-10"
+    type="single"
+    value={dis}
+    defaultValue="list"
+    aria-label="Text alignment"
+    onValueChange={(value) => {
+      if (value) setValue(value);
+    }}
+  >
+    <ToggleGroup.Item className="ToggleGroupItem size-6" value="chrt" aria-label="Left aligned">
+      <BarChartIcon />
+    </ToggleGroup.Item>
+    <ToggleGroup.Item className="ToggleGroupItem size-6" value="addPerson" aria-label="Center aligned">
+      <PersonIcon />
+    </ToggleGroup.Item>
+    
+  </ToggleGroup.Root>
+   
+    
+        <ToggleGroup.Root
     className="ToggleGroup"
     type="single"
     value={dis}

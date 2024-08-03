@@ -15,13 +15,13 @@ return[
           <div className="flex min-w-0 gap-x-4">
             
             <div className="min-w-0 flex-auto">
-              <p className="text-sm font-semibold leading-6 text-gray-900">
+              <p className="text-xs font-semibold leading-6 text-gray-900">
                 <a href={role}>
                   <span className="absolute inset-x-0 -top-px bottom-0" />
                   { name}
                 </a>
               </p>
-              <p className="mt-1 flex text-xs leading-5 text-gray-500">
+              <p className=" flex text-xs leading-5 text-gray-500">
                 <a href={`mailto:${role}`} className="relative truncate hover:underline">
                   {role}
                 </a>
@@ -30,13 +30,13 @@ return[
           </div>
           <div className="flex shrink-0 items-center gap-x-4">
             <div className="sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm leading-6 text-gray-900">{role}</p>
+              <p className="text-xs leading-6 text-gray-900">{role}</p>
               {role ? (
-                <p className="mt-1 text-xs leading-5 text-gray-500">
+                <p className=" text-xs leading-5 text-gray-500">
                   Last seen <time dateTime={name}>{role}</time>
                 </p>
               ) : (
-                <div className="mt-1 flex items-center gap-x-1.5">
+                <div className=" flex items-center gap-x-1.5">
                   <div className="flex-none rounded-full bg-emerald-500/20 p-1">
                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </div>
