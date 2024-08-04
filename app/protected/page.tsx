@@ -7,9 +7,12 @@ import { redirect } from "next/navigation";
 
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import * as Toggle from '@radix-ui/react-toggle';
-import React from "react";
+
 import Grid from './grid';
 import List from './list';
+import React, { useEffect, useState } from 'react';
+
+ 
 
 export default   function ProtectedPage() {
   const supabase = createClient();
@@ -23,80 +26,7 @@ export default   function ProtectedPage() {
       role: 'Co-Founder / CEO',
       imageUrl:
         'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },{
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
+    }
   ]
   if (!user) {
     return redirect("/login");
@@ -107,6 +37,7 @@ export default   function ProtectedPage() {
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center h-screen">
       <div className="w-full">
+
       
       <header className="bg-white w-full">
       <nav aria-label="Global" className="mx-auto drop-shadow-md w-full z-40  bg-white top-0 fixed flex  border-b  items-center justify-between p-6 lg:px-8">
@@ -122,9 +53,7 @@ export default   function ProtectedPage() {
         <Toggle.Root className="Toggle mr-2" aria-label="Toggle italic">
     <BarChartIcon  />
   </Toggle.Root>
-  <Toggle.Root className="Toggle mr-10" aria-label="Toggle italic">
-  <PersonIcon />
-  </Toggle.Root>
+ 
      <ToggleGroup.Root
     className="ToggleGroup"
     type="single"
@@ -135,6 +64,10 @@ export default   function ProtectedPage() {
       if (value) setValue(value);
     }}
   >
+     <ToggleGroup.Item className="ToggleGroupItem size-6" value="addperson" aria-label="Left aligned">
+  <PersonIcon />
+
+    </ToggleGroup.Item>
     <ToggleGroup.Item className="ToggleGroupItem size-6" value="list" aria-label="Left aligned">
       <RowsIcon />
     </ToggleGroup.Item>
@@ -150,20 +83,20 @@ export default   function ProtectedPage() {
 
       <div className="flex-1 flex flex-col gap-20  pt-3 w-full">
       <main className="flex-1 flex flex-col gap-6 w-full">
-     { dis =="grid" && <div className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
+     { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
   
  { people.map((person) => (
-<Grid name={person.name} role={person.role}/>
+<Grid name={person.name} role={person.role} key={person.name}/>
 ))}
 
       
       </div>}
       
       
-      { dis =="list" && <div className="grid   grid-cols-1 md:grid-cols-1">
+      { dis =="list" && <div key="name" className="grid   grid-cols-1 md:grid-cols-1">
   
   { people.map((person) => (
- <List name={person.name} role={person.role}/>
+ <List name={person.name} role={person.role} key={person.name}/>
  ))}
  
        

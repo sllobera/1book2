@@ -6,7 +6,7 @@ export default function List({ name ,role}: { name: string ,role:string}){
 
 return[ 
 
-    <ul
+    <ul key={name}
       role="list"
       className="divide-y divide-gray-400 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 "
     >
