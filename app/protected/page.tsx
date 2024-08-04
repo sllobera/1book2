@@ -12,9 +12,10 @@ import Grid from './grid';
 import List from './list';
 import React, { useEffect, useState } from 'react';
 
- 
+var socket: WebSocket;
+var connected = false;
 
-export default   function ProtectedPage() {
+export default    function ProtectedPage() {
   const supabase = createClient();
   const [dis, setValue] = React.useState('list');
   const [pep, setPep] = React.useState('addperson');
@@ -31,8 +32,32 @@ export default   function ProtectedPage() {
   if (!user) {
     return redirect("/login");
   }
-
   
+  const socketCloseListener = () => {
+       if(!connected){
+        
+    if (socket) {
+        console.log(socket);
+        
+    }
+    socket = new WebSocket('WSS://www.kaostrading.com/sock?test');
+    socket.addEventListener('message', socketMessageListener);
+    socket.addEventListener('open', socketOpenListener);
+    socket.addEventListener('close', socketCloseListener);
+
+}}
+const socketOpenListener = () => {
+  console.log('Connected!!');
+connected = true;
+  
+};
+const socketMessageListener = (event: { data: string; }) => {
+
+  //console.log(JSON.parse(event.data))   
+   }
+  useEffect(() => socketCloseListener(), [])
+
+ 
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center h-screen">
