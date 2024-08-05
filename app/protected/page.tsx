@@ -29,6 +29,9 @@ export default    function ProtectedPage() {
         'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
     }
   ]
+  const [equity, setEquity] = useState(444);
+  const [positions, setPositions] = useState([]);
+  const [total, setTotal] = useState(0);
   if (!user) {
     return redirect("/login");
   }
@@ -53,7 +56,11 @@ connected = true;
 };
 const socketMessageListener = (event: { data: string; }) => {
 
-  //console.log(JSON.parse(event.data))   
+  console.log("opi "+JSON.parse(event.data).positions)
+
+
+  setEquity(Number(JSON.parse(event.data).equity));
+  setPositions(JSON.parse(event.data).positions);
    }
   useEffect(() => socketCloseListener(), [])
 
@@ -110,8 +117,8 @@ const socketMessageListener = (event: { data: string; }) => {
       <main className="flex-1 flex flex-col gap-6 w-full">
      { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
   
- { people.map((person) => (
-<Grid name={person.name} role={person.role} key={person.name}/>
+ { positions.map((person) => (
+<Grid name={person[1]} role={person[2]} key={person[3]}/>
 ))}
 
       
@@ -119,10 +126,10 @@ const socketMessageListener = (event: { data: string; }) => {
       
       
       { dis =="list" && <div key="name" className="grid   grid-cols-1 md:grid-cols-1">
-  
-  { people.map((person) => (
- <List name={person.name} role={person.role} key={person.name}/>
- ))}
+
+  { positions?positions.map((person) => (
+ <List name={person[1]} role={person[2]} key={person[3]}/>
+ )):""}
  
        
        </div>}
