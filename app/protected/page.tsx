@@ -18,6 +18,7 @@ var useremail=""
 var socket: WebSocket;
 var connected = false;
 var accountlist: any[] = [];
+
 export default    function ProtectedPage() {
   const supabase = createClient();
   const user =  supabase.auth.getUser();
@@ -53,11 +54,10 @@ export default    function ProtectedPage() {
     );
     socket.addEventListener('message', socketMessageListener);
     socket.addEventListener('open', socketOpenListener);
-   socket.addEventListener('close', socketCloseListenerp);
+ //  socket.addEventListener('close', socketCloseListenerp);
 
 }}
-const socketCloseListenerp=async () => { const  { data}  = await supabase.auth.getUser();
-socketCloseListener(data.user?.email)}
+
 const socketOpenListener = () => {
   console.log('Connected!!');
 connected = true;
@@ -153,12 +153,12 @@ const socketMessageListener = (event: { data: string; }) => {
       </nav></header>
       </div>
 
-      <div className="flex-1 flex flex-col gap-20  pt-3 w-full">
+      <div className="flex-1 flex flex-col gap-20   w-full">
       <main className="flex-1 flex flex-col gap-6 w-full">
      { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
   
  { accountlist.map((acc,index)=> (
-<Grid name={acc.account} role={acc.equity} key={index}/>
+<Grid name={acc.account} equity={acc.equity} key={index}/>
 ))}
 
       
@@ -168,7 +168,7 @@ const socketMessageListener = (event: { data: string; }) => {
       { dis =="list" && <div key="name" className="grid   grid-cols-1 md:grid-cols-1">
 
   { accountlist.map((acc,index) => (
- <List name={acc.account} role={acc.equity} key={index}/>
+ <List name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit } pl={acc.pl}/>
  ))}
  
        
