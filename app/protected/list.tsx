@@ -18,10 +18,10 @@ return[
               <p className="text-xs font-semibold leading-6 text-gray-900">
                 <a href={role}>
                   <span className="absolute inset-x-0 -top-px bottom-0" />
-                  { name}
+                  { name} - ({name.length})
                 </a>
               </p>
-              <p className=" flex text-xs leading-5 text-gray-500">
+              <p className=" flex text-xs leading-5 text-green-500">
                 <a href={`mailto:${role}`} className="relative truncate hover:underline">
                   {role}
                 </a>
