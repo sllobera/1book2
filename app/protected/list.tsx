@@ -8,7 +8,7 @@ function format1(n: number, ) {
       return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c; 
     });
   }
-export default function List({ name ,equity,deposit,pl}: { name: string ,equity:number,deposit:number,pl:number}){
+export default function List({ name ,equity,deposit,pl,pos}: { name: string ,equity:number,deposit:number,pl:number,pos:any[]}){
 
 
 return[ 
@@ -25,7 +25,7 @@ return[
               <p className="text-xs font-semibold leading-6 text-gray-900">
                 <a href={name}>
                   <span className="absolute inset-x-0 -top-px bottom-0" />
-                  { name} - ({name.length})
+                  { name} - ({pos.length})
                 </a>
               </p>
               <p className=" flex text-xs leading-5 text-green-800">

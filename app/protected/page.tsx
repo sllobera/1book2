@@ -97,9 +97,13 @@ const socketMessageListener = (event: { data: string; }) => {
   const getData = async () => {
     const  { data}  = await supabase.auth.getUser();
     const { data: notes } = await supabase.from('account_access').select("account")
+    let opi="";
     if(notes){
-   
-    socketCloseListener(data.user?.email+"+"+notes[0]!.account)
+      for(var i=0;i<notes.length;i++)
+   {
+opi+="|"+notes[i]!.account
+   }
+    socketCloseListener(data.user?.email+"+"+opi)
     }
   }
   getData()
@@ -158,7 +162,7 @@ const socketMessageListener = (event: { data: string; }) => {
      { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
   
  { accountlist.map((acc,index)=> (
-<Grid name={acc.account} equity={acc.equity} key={index}/>
+<Grid name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit} pl={acc.pl} pos={positions}/>
 ))}
 
       
@@ -168,7 +172,7 @@ const socketMessageListener = (event: { data: string; }) => {
       { dis =="list" && <div key="name" className="grid   grid-cols-1 md:grid-cols-1">
 
   { accountlist.map((acc,index) => (
- <List name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit } pl={acc.pl}/>
+ <List name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit } pl={acc.pl} pos={positions}/>
  ))}
  
        
