@@ -11,15 +11,18 @@ import * as Toggle from '@radix-ui/react-toggle';
 import Grid from './grid';
 import List from './list';
 import React, { useEffect, useState } from 'react';
-
+import Index from '../page';
+var useremail=""
 var socket: WebSocket;
 var connected = false;
 
 export default    function ProtectedPage() {
   const supabase = createClient();
+  const user =  supabase.auth.getUser();
+
   const [dis, setValue] = React.useState('list');
   const [pep, setPep] = React.useState('addperson');
-  const user = supabase.auth.getUser();
+ 
   const people = [
     {
       name: 'Leslie Alexander',
@@ -36,19 +39,23 @@ export default    function ProtectedPage() {
     return redirect("/login");
   }
   
-  const socketCloseListener = () => {
+  const socketCloseListener = (email: string | undefined) => {
        if(!connected){
         
     if (socket) {
         console.log(socket);
         
     }
-    socket = new WebSocket('WSS://www.kaostrading.com/sock?test');
+    
+    socket = new WebSocket('WSS://www.kaostrading.com/sock?'+email
+    );
     socket.addEventListener('message', socketMessageListener);
     socket.addEventListener('open', socketOpenListener);
-    socket.addEventListener('close', socketCloseListener);
+   socket.addEventListener('close', socketCloseListenerp);
 
 }}
+const socketCloseListenerp=async () => { const  { data}  = await supabase.auth.getUser();
+socketCloseListener(data.user?.email)}
 const socketOpenListener = () => {
   console.log('Connected!!');
 connected = true;
@@ -56,14 +63,25 @@ connected = true;
 };
 const socketMessageListener = (event: { data: string; }) => {
 
-  console.log("opi "+JSON.parse(event.data).positions)
 
 
   setEquity(Number(JSON.parse(event.data).equity));
   setPositions(JSON.parse(event.data).positions);
    }
-  useEffect(() => socketCloseListener(), [])
+ // useEffect(() => socketCloseListener(), [])
 
+ useEffect(() => {
+  
+  const getData = async () => {
+    const  { data}  = await supabase.auth.getUser();
+    const { data: notes } = await supabase.from('account_access').select("account")
+    if(notes){
+      console.log(notes)
+    socketCloseListener(data.user?.email+"+"+notes[0]!.account)
+    }
+  }
+  getData()
+}, [])
  
 
   return (
@@ -117,8 +135,8 @@ const socketMessageListener = (event: { data: string; }) => {
       <main className="flex-1 flex flex-col gap-6 w-full">
      { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
   
- { positions.map((person) => (
-<Grid name={person[1]} role={person[2]} key={person[3]}/>
+ { positions.map((person,index)=> (
+<Grid name={person[1]} role={person[2]} key={index}/>
 ))}
 
       
@@ -127,8 +145,8 @@ const socketMessageListener = (event: { data: string; }) => {
       
       { dis =="list" && <div key="name" className="grid   grid-cols-1 md:grid-cols-1">
 
-  { positions?positions.map((person) => (
- <List name={person[1]} role={person[2]} key={person[3]}/>
+  { positions?positions.map((person,index) => (
+ <List name={person[1]} role={person[2]} key={index}/>
  )):""}
  
        
