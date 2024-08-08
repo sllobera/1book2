@@ -4,12 +4,13 @@ import { DashboardIcon,BarChartIcon ,RowsIcon ,PersonIcon} from '@radix-ui/react
 import { createClient } from "@/utils/supabase/client";
 
 import { redirect } from "next/navigation";
-
+ 
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import * as Toggle from '@radix-ui/react-toggle';
 
 import Grid from './grid';
 import List from './list';
+import Loader from './loader';
 import Addpeople from './people';
 
 import React, { useEffect, useState } from 'react';
@@ -19,10 +20,12 @@ var socket: WebSocket;
 var connected = false;
 var accountlist: any[] = [];
 
+
 export default    function ProtectedPage() {
+  const [isload , setLoad] = useState(true);
   const supabase = createClient();
   const user =  supabase.auth.getUser();
-
+   
   const [dis, setValue] = React.useState('list');
   const [pep, setPep] = React.useState('addperson');
  
@@ -41,6 +44,7 @@ export default    function ProtectedPage() {
   const [positions, setPositions] = useState([]);
   const [total, setTotal] = useState(0);
   const [ accounts, setAccounts] =  useState([] as any);
+
   if (!user) {
     return redirect("/login");
   }
@@ -91,9 +95,10 @@ const socketMessageListener = (event: { data: string; }) => {
   
    }
  // useEffect(() => socketCloseListener(), [])
-
+ 
  useEffect(() => {
-  
+  setLoad(true)
+
   const getData = async () => {
     const  { data}  = await supabase.auth.getUser();
     const { data: notes } = await supabase.from('account_access').select("account")
@@ -106,7 +111,7 @@ opi+="|"+notes[i]!.account
     socketCloseListener(data.user?.email+"+"+opi)
     }
   }
-  getData()
+  getData().then(response =>{setLoad(false)})
 }, [])
  
 
@@ -159,6 +164,7 @@ opi+="|"+notes[i]!.account
 
       <div className="flex-1 flex flex-col gap-20   w-full">
       <main className="flex-1 flex flex-col gap-6 w-full">
+        {isload ? <Loader/>:""}
      { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
   
  { accountlist.map((acc,index)=> (
