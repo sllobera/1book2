@@ -185,7 +185,7 @@ opi+="|"+notes[i]!.account
        </div>}
        
   
-       { dis =="addperson" && <div key="addpersoj" className="grid   grid-cols-1 md:grid-cols-1">
+       { dis =="addperson" && <div key="addpersoj" className="p-10">
 
 { 
 <Addpeople/>}
