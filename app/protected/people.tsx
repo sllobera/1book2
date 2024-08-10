@@ -23,9 +23,16 @@ import Loader from './loader';
 var accountlist: any[] = [];
 export default function Addpeople() {
   const supabase = createClient();
-   
-useEffect(() => {
-  
+  const acacc = async (acc: any) => {
+    
+const { error } = await supabase
+.from('accounts')
+.insert({ accountid: acc })
+
+setAcc("");
+
+getData();
+  }
 
   const getData = async () => {
     
@@ -42,8 +49,8 @@ useEffect(() => {
   }
   console.log(accountlist)
 }}
-  getData()
-}, [])
+useEffect(() => {getData()},[])
+const [accid, setAcc] = useState(''); // Declare a state variable...
   return (
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
     <div className="px-4 py-5 sm:px-6">
@@ -56,15 +63,19 @@ useEffect(() => {
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <UsersIcon aria-hidden="true" className="h-5 w-5 text-gray-400" />
           </div>
+        
           <input
+          value={accid} // ...force the input's value to match the state variable...
+          onChange={e => setAcc(e.target.value)} // ...
             id="email"
             name="email"
             type="email"
             placeholder="Account Number"
             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
-          />
+          /> 
         </div>
         <button
+        onClick={()=>{ acacc(accid); } }
           type="button"
           className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm bg-blue-50 font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
         >
@@ -80,9 +91,9 @@ useEffect(() => {
 
     { accountlist.length >0 ?accountlist.map((acc,index)=> (
 
-    <button key={index} onClick={()=>{ alert(acc); } }
+    <button key={index} 
         type="button"
-        className="rounded-full ml-1 bg-indigo-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="rounded-full ml-1 mt-1 bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
         {acc}
       </button>)):<Loader/>}
