@@ -61,7 +61,7 @@ useEffect(() => {
             name="email"
             type="email"
             placeholder="Account Number"
-            className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
           />
         </div>
         <button
@@ -80,7 +80,7 @@ useEffect(() => {
 
     { accountlist.length >0 ?accountlist.map((acc,index)=> (
 
-    <button key={index} onClick={()=>{ alert({acc}); } }
+    <button key={index} onClick={()=>{ alert(acc); } }
         type="button"
         className="rounded-full ml-1 bg-indigo-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
