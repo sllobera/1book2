@@ -17,48 +17,13 @@ import { BarsArrowUpIcon, PlusIcon, UsersIcon ,PlusCircleIcon} from '@heroicons/
 import { useEffect, useState } from "react"
 import { createClient } from "@/utils/supabase/client";
 
-const people = [
-  {
-    name: 'Lindsay Walton',
-    role: 'Front-end Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Courtney Henry',
-    role: 'Designer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Tom Cook',
-    role: 'Director of Product',
-    imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Whitney Francis',
-    role: 'Copywriter',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Leonard Krasner',
-    role: 'Senior Designer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Floyd Miles',
-    role: 'Principal Designer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-]
+import Loader from './loader';
+
+  
 var accountlist: any[] = [];
 export default function Addpeople() {
   const supabase = createClient();
- 
+   
 useEffect(() => {
   
 
@@ -66,14 +31,16 @@ useEffect(() => {
     
     (accountlist.length==0)
     const { data: notes } = await supabase.from('accounts').select("accountid")
-    console.log(notes);
+    
+    accountlist=[];
     if(notes){
       for(var i=0;i<notes.length;i++)
    {
-    accountlist=[];
- accountlist.push(notes[i]);
+   
+ accountlist.push(notes[i].accountid);
        
   }
+  console.log(accountlist)
 }}
   getData()
 }, [])
@@ -82,7 +49,7 @@ useEffect(() => {
     <div className="px-4 py-5 sm:px-6">
     <div>
       <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-        Search candidates
+        Add Account 
       </label>
       <div className="mt-2 flex rounded-md shadow-sm">
         <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -93,7 +60,7 @@ useEffect(() => {
             id="email"
             name="email"
             type="email"
-            placeholder="John Smith"
+            placeholder="Account Number"
             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
         </div>
@@ -111,15 +78,17 @@ useEffect(() => {
     </div>
     <div className="px-4 py-5 sm:p-6"> 
 
-    { accountlist.map((acc,index)=> (
+    { accountlist.length >0 ?accountlist.map((acc,index)=> (
 
-    <button key={index}
+    <button key={index} onClick={()=>{ alert({acc}); } }
         type="button"
         className="rounded-full ml-1 bg-indigo-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-        {acc.accountid}
-      </button>
-))}
+        {acc}
+      </button>)):<Loader/>}
+
+
+
 
 
 
