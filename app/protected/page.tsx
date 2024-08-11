@@ -27,19 +27,7 @@ export default    function ProtectedPage() {
   const user =  supabase.auth.getUser();
    
   const [dis, setValue] = React.useState('list');
-  const [pep, setPep] = React.useState('addperson');
- 
-  const people = [
-    {
-      name: 'Leslie Alexander',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    }
-  ]
-
-  
+  const [pep, setPep] = React.useState('addperson');  
   const [equity, setEquity] = useState(444);
   const [positions, setPositions] = useState([]);
   const [total, setTotal] = useState(0);
@@ -70,6 +58,7 @@ connected = true;
 const socketMessageListener = (event: { data: string; }) => {
 
   if(JSON.parse(event.data).account != "123456")
+    
   if (accountlist.findIndex(x => x.account === JSON.parse(event.data).account) < 0) 
     {
         accountlist.push(JSON.parse(event.data)); 

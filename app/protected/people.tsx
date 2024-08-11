@@ -1,26 +1,15 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { CircleIcon } from "@radix-ui/react-icons"
 import { BarsArrowUpIcon, PlusIcon, UsersIcon ,PlusCircleIcon} from '@heroicons/react/20/solid'
-import { useEffect, useState } from "react"
+import { JSXElementConstructor, Key, PromiseLikeOfReactNode, ReactElement, ReactNode, ReactPortal, useEffect, useState } from "react"
 import { createClient } from "@/utils/supabase/client";
 
-import Loader from './loader';
+  
 
+import Loader from './loader';
+  
   
 var accountlist: any[] = [];
+var people: any[] = [];
 export default function Addpeople() {
   const supabase = createClient();
   const acacc = async (acc: any) => {
@@ -34,9 +23,16 @@ setAcc("");
 getData();
   }
 
+  const getusers = async () =>{
+    const { data: users } = await supabase.from("profiles").select();
+   
+if(users)
+     setPeople(users);
+  }
+  
   const getData = async () => {
     
-    (accountlist.length==0)
+   
     const { data: notes } = await supabase.from('accounts').select("accountid")
     
     accountlist=[];
@@ -45,13 +41,17 @@ getData();
    {
    
  accountlist.push(notes[i].accountid);
-       
-  }
-  console.log(accountlist)
+}
+
+       getusers();
+  
+  
 }}
 useEffect(() => {getData()},[])
-const [accid, setAcc] = useState(''); // Declare a state variable...
+const [accid, setAcc] = useState(''); 
+const [people, setPeople] = useState([] as any); 
   return (
+    
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
     <div className="px-4 py-5 sm:px-6">
     <div>
@@ -98,15 +98,42 @@ const [accid, setAcc] = useState(''); // Declare a state variable...
         {acc}
       </button>)):<Loader/>}
 
-
-
+</div>
+      <ul role="list" className="divide-y divide-gray-100">
+      {people.map((person: { first_name: string; last_name: string; email: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; surname: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; lastSeen: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; lastSeenDateTime: string | undefined; },index: Key | null | undefined) => (
+        <li key={index} className="flex justify-between gap-x-6 py-5">
+          <div className="flex min-w-0 gap-x-4">
+         
+            <div className="min-w-0 flex-auto">
+              <p className="text-sm font-semibold leading-6 text-gray-900">{person.first_name + " " +person.last_name}</p>
+              <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.email}</p>
+            </div>
+          </div>
+          <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+            <p className="text-sm leading-6 text-gray-900">{person.surname}</p>
+            {person.lastSeen ? (
+              <p className="mt-1 text-xs leading-5 text-gray-500">
+                Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time>
+              </p>
+            ) : (
+              <div className="mt-1 flex items-center gap-x-1.5">
+                <div className="flex-none rounded-full bg-emerald-500/20 p-1">
+                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                </div>
+                <p className="text-xs leading-5 text-gray-500">Online</p>
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
 
 
 
 
    
    
-    </div>
+    
   </div>
    
   )
