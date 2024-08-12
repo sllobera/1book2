@@ -58,7 +58,7 @@ connected = true;
 const socketMessageListener = (event: { data: string; }) => {
 
   if(JSON.parse(event.data).account != "123456")
-    
+
   if (accountlist.findIndex(x => x.account === JSON.parse(event.data).account) < 0) 
     {
         accountlist.push(JSON.parse(event.data)); 
@@ -69,9 +69,9 @@ const socketMessageListener = (event: { data: string; }) => {
         var ws    = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].weekstart;
         var inn   = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].index;
         var margd = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].margindiv;
-        accountlist.splice(accountlist.findIndex(x => x.account === JSON.parse(event.data).account), 1);
+       // accountlist.splice(accountlist.findIndex(x => x.account === JSON.parse(event.data).account), 1);
 
-        accountlist.push(JSON.parse(event.data));
+        accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)]=(JSON.parse(event.data));
         accountlist[accountlist.length - 1].name      = n;
         accountlist[accountlist.length - 1].index     = inn;
         accountlist[accountlist.length - 1].weekstart = ws;
@@ -80,7 +80,9 @@ const socketMessageListener = (event: { data: string; }) => {
   setEquity(Number(JSON.parse(event.data).equity));
   setEquity(Number(JSON.parse(event.data).equity));
   setPositions(JSON.parse(event.data).positions);
-  setAccounts(accountlist);
+
+  var opi =accountlist.sort(function(a,b){return b[0]-a[0]})
+  setAccounts(opi);
   
    }
  // useEffect(() => socketCloseListener(), [])
