@@ -1,5 +1,6 @@
 
 import classNames from "classnames";  
+import { useState } from "react";
 
 function countvol(acc: string | any[])
 {
@@ -22,9 +23,11 @@ function format1(n: number, ) {
     return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c; 
   });
 }
+
+
 export default function Grid({ name ,equity,deposit,pos,pl}: { name: string ,equity:number,deposit:number,pl:number,pos:any[]}){
 
-
+  const [selectedind, setIndex] = useState('');
 return[ 
 
     <div key={name} className={classNames("relative flex border-l-4 mt-3 items-center space-x-3 rounded-lg border  bg-white px-2 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
@@ -38,19 +41,19 @@ return[
      
       <div className="min-w-0 flex-1">
 
-      <li key={name} className="relative  border-blue-500 flex justify-between ">
+      <li key={name}  onClick={()=>{if(selectedind == name ){setIndex('') }else{setIndex(name) }}} className="relative  border-blue-500 flex justify-between ">
           <div className="flex min-w-0 gap-x-4">
             
             <div className="min-w-0 flex-auto">
               <p className="text-xs font-semibold leading-6 text-gray-900">
-                <a href={name} className="text-xs font-semibold leading-6 text-gray-900">
+              
                   <span className="absolute inset-x-0 -top-px bottom-0" />
                   { name} - (<span className={classNames("" , {'text-blue-600':Number(countvol(pos))>=0,
                       'text-red-600':Number(countvol(pos))<0,
              
              
                 })}>{pos.length}</span>)
-                </a>
+                
               </p>
               <p className=" flex text-xs leading-5 text-green-800">
                 <a href={`mailto:${equity}`} className="relative truncate hover:underline">
@@ -82,7 +85,23 @@ return[
             </div>
           
           </div>
-        </li>
+         
+        </li> {selectedind && <table className="min-w-full divide-y divide-gray-300">
+            
+            <tbody className="bg-white">
+              {pos.map((person) => (
+                <tr key={person.email} className="even:bg-gray-50">
+                  <td className="whitespace-nowrap py-1 pl-2 pr-1 text-xs font-medium text-gray-900 sm:pl-3">
+                    {person[2]}
+                  </td>
+                  <td className="whitespace-nowrap px-1 py-2 text-xs text-blue-500">    {person[0]}</td>
+                  <td className="whitespace-nowrap px-1 py-2 text-xs text-gray-500">    {person[1]}</td>
+                  <td className="whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right">    {person[3]}</td>
+                 
+                </tr>
+              ))}
+            </tbody>
+          </table>}
       </div>
     </div>
  

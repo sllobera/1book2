@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 
 import classNames from "classnames";  
+import { useState } from "react";
 function countvol(acc: string | any[])
 {
     var o=0;
@@ -23,7 +24,7 @@ function format1(n: number, ) {
     });
   }
 export default function List({ name ,equity,deposit,pl,pos}: { name: string ,equity:number,deposit:number,pl:number,pos:any[]}){
-
+  const [selectedind, setIndex] = useState('');
 
 return[ 
 
@@ -32,12 +33,20 @@ return[
       className="divide-y divide-gray-400 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 "
     >
       
-        <li key={name} className="relative border-l-4 border-blue-500 flex justify-between gap-x-6 px-1 py-1 hover:bg-gray-50 sm:px-6">
+        <li key={name} onClick={()=>{if(selectedind == name ){setIndex('') }else{setIndex(name) }}} className={classNames("relative border-l-4  flex justify-between gap-x-6 px-1 py-1 hover:bg-gray-50 sm:px-6",{
+ 'border-green-600':equity-deposit>=0,
+  'border-red-600':equity-deposit<0
+
+
+ })}
+
+
+        >
           <div className="flex min-w-0 gap-x-4">
             
             <div className="min-w-0 flex-auto">
               <p className="text-xs font-semibold leading-6 text-gray-900">
-                <a href={name}>
+                
                   <span className="absolute inset-x-0 -top-px bottom-0 text-gray-600" />
                   
              
@@ -48,10 +57,10 @@ return[
              
              
                 })}>{pos.length}</span>)
-                </a>
+                
               </p>
               <p className=" flex text-xs leading-5 text-green-800">
-                <a href={`mailto:${equity}`} className="relative truncate hover:underline">
+                <a href={`mailto:${equity}`} className="relative truncate hover:underline text-gray-900">
                   {format1(equity)}
                 </a>
               </p>
@@ -80,11 +89,29 @@ return[
             </div>
             <ChevronRightIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
           </div>
+          
+         
         </li>
-      
+       {selectedind == name &&  <table className="min-w-full divide-y divide-gray-300">
+            
+              <tbody className="bg-white">
+                {pos.map((person) => (
+                  <tr key={person.email} className="even:bg-gray-50">
+                    <td className="whitespace-nowrap py-1 pl-2 pr-1 text-xs font-medium text-gray-900 sm:pl-3">
+                      {person[2]}
+                    </td>
+                    <td className="whitespace-nowrap px-1 py-2 text-xs text-blue-500">    {person[0]}</td>
+                    <td className="whitespace-nowrap px-1 py-2 text-xs text-gray-500">    {person[1]}</td>
+                    <td className="whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right">    {person[3]}</td>
+                   
+                  </tr>
+                ))}
+              </tbody>
+            </table>}
     </ul>
  
   
 
 
 ]}
+
