@@ -65,17 +65,17 @@ const socketMessageListener = (event: { data: string; }) => {
     }
     else
     {
-        var n     = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].name;
-        var ws    = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].weekstart;
-        var inn   = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].index;
-        var margd = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].margindiv;
+     //   var n     = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].name;
+       // var ws    = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].weekstart;
+        //ar inn   = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].index;
+        //var margd = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].margindiv;
        // accountlist.splice(accountlist.findIndex(x => x.account === JSON.parse(event.data).account), 1);
 
         accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)]=(JSON.parse(event.data));
-        accountlist[accountlist.length - 1].name      = n;
-        accountlist[accountlist.length - 1].index     = inn;
-        accountlist[accountlist.length - 1].weekstart = ws;
-        accountlist[accountlist.length - 1].margindiv = margd;
+        //accountlist[accountlist.length - 1].name      = n;
+        //accountlist[accountlist.length - 1].index     = inn;
+        //accountlist[accountlist.length - 1].weekstart = ws;
+        //accountlist[accountlist.length - 1].margindiv = margd;
     }
   setEquity(Number(JSON.parse(event.data).equity));
   setEquity(Number(JSON.parse(event.data).equity));
@@ -159,7 +159,7 @@ opi+="|"+notes[i]!.account
      { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
   
  { accountlist.map((acc,index)=> (
-<Grid name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit} pl={acc.pl} pos={positions}/>
+<Grid name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit} pl={acc.pl} pos={acc.positions}/>
 ))}
 
       
@@ -169,7 +169,7 @@ opi+="|"+notes[i]!.account
       { dis =="list" && <div key="name" className="grid   grid-cols-1 md:grid-cols-1">
 
   { accountlist.map((acc,index) => (
- <List name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit } pl={acc.pl} pos={positions}/>
+ <List name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit } pl={acc.pl} pos={acc.positions}/>
  ))}
  
        

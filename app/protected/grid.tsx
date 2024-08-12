@@ -1,6 +1,19 @@
 
 import classNames from "classnames";  
 
+function countvol(acc: string | any[])
+{
+    var o=0;
+    for (let i = 0; i < acc.length; i++) {
+        if(acc[i][4].toLowerCase()=="sell")
+        {o-=Number(acc[i][0])}
+        else
+        {o+=Number(acc[i][0]);}
+            
+     
+      }
+      return o.toFixed(1);
+}
 function format1(n: number, ) {
   var o = n<0?"-":""
   if(n <0){n = -n};
@@ -30,9 +43,13 @@ return[
             
             <div className="min-w-0 flex-auto">
               <p className="text-xs font-semibold leading-6 text-gray-900">
-                <a href={name}>
+                <a href={name} className="text-xs font-semibold leading-6 text-gray-900">
                   <span className="absolute inset-x-0 -top-px bottom-0" />
-                  { name} - ({pos.length})
+                  { name} - (<span className={classNames("" , {'text-blue-600':Number(countvol(pos))>=0,
+                      'text-red-600':Number(countvol(pos))<0,
+             
+             
+                })}>{pos.length}</span>)
                 </a>
               </p>
               <p className=" flex text-xs leading-5 text-green-800">
@@ -46,7 +63,12 @@ return[
             <div className="sm:flex sm:flex-col sm:items-end">
               <p className="text-xs leading-6 text-green-700 text-right">{"$"+format1(pl)}</p>
               {equity ? (
-                <p className=" text-xs leading-5 text-gray-500 text-red-700">
+                <p className={classNames(" text-xs leading-5 ",
+                  {'text-green-600':equity-deposit>=0,
+                   'text-red-600':equity-deposit<0
+             
+             
+                  })}>
            {"$"+format1(equity-deposit)}
                 </p>
               ) : (
