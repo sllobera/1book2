@@ -116,12 +116,18 @@ const [people, setPeople] = useState([] as any);
                 Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time>
               </p>
             ) : (
-              <div className="mt-1 flex items-center gap-x-1.5">
-                <div className="flex-none rounded-full bg-emerald-500/20">
-                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                </div>
-                <p className="text-xs leading-5 text-gray-500 pr-5">Online</p>
-              </div>
+              <div className="px-4 py-5 sm:p-6"> 
+
+    { accountlist.length >0 ?accountlist.map((acc,index)=> (
+
+    <button key={index} 
+        type="button"
+        className="rounded-full ml-1 mt-1 bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        {acc}
+      </button>)):<Loader/>}
+
+</div>
             )}
           </div>
         </li>
