@@ -92,7 +92,7 @@ return[
           
          
         </li>
-       {selectedind == name &&  <table className="min-w-full divide-y divide-gray-300">
+       {selectedind == name &&  <table className="min-w-full table-fixed divide-y divide-gray-300">
             
               <tbody className="bg-white">
                 {pos.map((person) => (
@@ -101,8 +101,13 @@ return[
                       {person[2]}
                     </td>
                     <td className="whitespace-nowrap px-1 py-2 text-xs text-blue-500">    {person[0]}</td>
-                    <td className="whitespace-nowrap px-1 py-2 text-xs text-gray-500">    {person[1]}</td>
-                    <td className="whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right">    {person[3]}</td>
+                    <td className={classNames(" text-xs text-right leading-5 whitespace-nowrap px-1 py-2 text-xs",
+                  {'text-green-600':Number(person[1])>=0,
+                   'text-red-600':Number(person[1])<0
+             
+             
+                  })}  >   ${person[1]}</td>
+                    <td className="whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right pr-2" >    ${person[3]}</td>
                    
                   </tr>
                 ))}

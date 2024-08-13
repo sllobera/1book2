@@ -30,7 +30,7 @@ export default function Grid({ name ,equity,deposit,pos,pl}: { name: string ,equ
   const [selectedind, setIndex] = useState('');
 return[ 
 
-    <div key={name} className={classNames("relative flex border-l-4 mt-3 items-center space-x-3 rounded-lg border  bg-white px-2 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+    <div key={name} className={classNames("relative flex border-l-4 mt-3 space-x-3 rounded-lg border  bg-white px-2 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
       ,
      {'border-green-600':equity-deposit>=0,
       'border-red-600':equity-deposit<0
@@ -62,9 +62,16 @@ return[
               </p>
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-x-4">
+          <div className="flex shrink-0 items-start gap-x-4">
             <div className="sm:flex sm:flex-col sm:items-end">
-              <p className="text-xs leading-6 text-green-700 text-right">{"$"+format1(pl)}</p>
+            <p className={classNames(" text-xs leading-5 ",
+                  {'text-green-600':pl>=0,
+                   'text-red-600':pl<0
+             
+             
+                  })}>
+           {"$"+format1(pl)}
+                </p>
               {equity ? (
                 <p className={classNames(" text-xs leading-5 ",
                   {'text-green-600':equity-deposit>=0,
@@ -95,8 +102,13 @@ return[
                     {person[2]}
                   </td>
                   <td className="whitespace-nowrap px-1 py-2 text-xs text-blue-500">    {person[0]}</td>
-                  <td className="whitespace-nowrap px-1 py-2 text-xs text-gray-500">    {person[1]}</td>
-                  <td className="whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right">    {person[3]}</td>
+                  <td className={classNames(" text-xs text-right leading-5 whitespace-nowrap px-1 py-2 text-xs",
+                  {'text-green-600':Number(person[1])>=0,
+                   'text-red-600':Number(person[1])<0
+             
+             
+                  })}  >   ${person[1]}</td>
+                  <td className="whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right pr-2">    ${person[3]}</td>
                  
                 </tr>
               ))}
