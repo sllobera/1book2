@@ -105,17 +105,12 @@ const [people, setPeople] = useState([] as any);
           <div className="flex min-w-0 gap-x-4">
          
             <div className="min-w-0 flex-auto ml-5">
-              <p className="text-sm font-semibold leading-6 text-gray-900">{person.first_name + " " +person.last_name}</p>
-              <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.email}</p>
+              <p className="text-sm font-semibold leading-6 text-gray-900 text-nowrap">{person.first_name + " " +person.last_name}</p>
+              <p className="mt-1 truncate text-xs leading-5 text-gray-500 text-nowrap">{person.email}</p>
             </div>
           </div>
-          <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            <p className="text-sm leading-6 text-gray-900">{person.surname}</p>
-            {person.lastSeen ? (
-              <p className="mt-1 text-xs leading-5 text-gray-500">
-                Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time>
-              </p>
-            ) : (
+          <div className=" s">
+           
               <div className="px-4 py-5 sm:p-6"> 
 
     { accountlist.length >0 ?accountlist.map((acc,index)=> (
@@ -128,7 +123,7 @@ const [people, setPeople] = useState([] as any);
       </button>)):<Loader/>}
 
 </div>
-            )}
+            
           </div>
         </li>
       ))}
