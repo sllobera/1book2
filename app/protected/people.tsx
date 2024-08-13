@@ -24,7 +24,7 @@ getData();
   }
 
   const getusers = async () =>{
-    const { data: users } = await supabase.from("profiles").select();
+    const { data: users } = await supabase.from("profiles").select("id,first_name,last_name,email");
    
 if(users)
      setPeople(users);
@@ -49,7 +49,8 @@ if(users)
 }}
 useEffect(() => {getData()},[])
 const [accid, setAcc] = useState(''); 
-const [people, setPeople] = useState([] as any); 
+const [people, setPeople] = useState([{}] as any); 
+const [selectedind, setIndex] = useState('');
   return (
     
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
@@ -100,8 +101,10 @@ const [people, setPeople] = useState([] as any);
 
 </div>
       <ul role="list" className="divide-y divide-gray-100">
-      {people.map((person: { first_name: string; last_name: string; email: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; surname: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; lastSeen: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; lastSeenDateTime: string | undefined; },index: Key | null | undefined) => (
-        <li key={index} className="flex justify-between gap-x-6 py-5">
+      {people.map((person: {
+        id: string; first_name: string; last_name: string; email: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; surname: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; lastSeen: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; lastSeenDateTime: string | undefined; 
+},id: string | null | undefined) => (
+        <li key={person.id} className="flex justify-between gap-x-6 py-5"  onClick={()=>{if(selectedind == person.id ){setIndex('') }else{setIndex(person.id) }}}>
           <div className="flex min-w-0 gap-x-4">
          
             <div className="min-w-0 flex-auto ml-5">
