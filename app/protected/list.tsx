@@ -107,7 +107,7 @@ return[
              
              
                   })}  >   ${person[1]}</td>
-                    <td className="whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right pr-2" >    ${person[3]}</td>
+                    <td className="whitespace-nowrap px-1 py-2 text-xs text-gray-500 text-right pr-2" >    ${person[3]}</td>
                    
                   </tr>
                 ))}
