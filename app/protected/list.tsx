@@ -61,7 +61,11 @@ return[
               </p>
               <p className=" flex text-xs leading-5 text-green-800">
                 <a href={`mailto:${equity}`} className="relative truncate hover:underline text-gray-900">
-                  {format1(equity)}
+                  {format1(equity)} - (<span className={classNames("" , {'text-blue-600':Number(countvol(pos))>=0,
+                  'text-red-600':Number(countvol(pos))<0,
+             
+             
+                })}>{countvol(pos)}</span>)
                 </a>
               </p>
             </div>
@@ -100,7 +104,12 @@ return[
                     <td className="whitespace-nowrap py-1 pl-2 pr-1 text-xs font-medium text-gray-900 sm:pl-3">
                       {person[2]}
                     </td>
-                    <td className="whitespace-nowrap px-1 py-2 text-xs text-blue-500">    {person[0]}</td>
+                    <td className={classNames("text-xs text-right leading-5 whitespace-nowrap px-1 py-2 text-xs",
+                  {'text-red-600':person[4]=="Sell",
+                   'text-blue-600':person[4]=="Buy"
+             
+             
+                  })}  >   {person[0]}</td>
                     <td className={classNames(" text-xs text-right leading-5 whitespace-nowrap px-1 py-2 text-xs",
                   {'text-green-600':Number(person[1])>=0,
                    'text-red-600':Number(person[1])<0
