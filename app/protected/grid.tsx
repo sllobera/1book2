@@ -105,7 +105,7 @@ return[
                   <td className="whitespace-nowrap py-1   text-xs font-medium text-gray-900 sm:pl-3">
                     {person[2]}
                   </td>
-                  <td className={classNames("text-xs text-right leading-5 whitespace-nowrap px-1 py-2 text-xs",
+                     <td className={classNames("text-xs text-right leading-5 whitespace-nowrap px-1 py-2 text-xs",
                   {'text-red-600':person[4]=="Sell",
                    'text-blue-600':person[4]=="Buy"
              

@@ -107,7 +107,7 @@ const [selected, setSelected] = useState(people)
    <div className="px-4 py-5 sm:px-6">
    {people.length >0  &&
    <Listbox value={selected} onChange={setSelected}>
-      <Label className="block text-sm font-medium leading-6 text-gray-900">Assigned Accouns</Label>
+      <Label className="block text-sm font-medium leading-6 text-gray-900">Assigned Accounts</Label>
       <div className="relative mt-2">
         <ListboxButton className="relative  cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6">
           <span className="block truncate">{selected.first_name?selected.first_name +" "+ selected.last_name:"Select user"}</span>
@@ -126,7 +126,7 @@ const [selected, setSelected] = useState(people)
               value={person}
               className="group relative cursor-default select-none py-2 pl-8 pr-4 text-gray-900 data-[focus]:bg-blue-600 data-[focus]:text-white"
             >
-              <span className="block truncate font-normal group-data-[selected]:font-semibold">{person.first_name + person.last_name} </span>
+              <span className="block truncate font-normal group-data-[selected]:font-semibold">{person.first_name +" "+ person.last_name} </span>
 
               <span className="absolute inset-y-0 left-0 flex items-center pl-1.5 text-blue-600 group-data-[focus]:text-white [.group:not([data-selected])_&]:hidden">
                 <CheckIcon aria-hidden="true" className="h-5 w-5" />
@@ -139,7 +139,18 @@ const [selected, setSelected] = useState(people)
     
    </div>
 
+   <div className="px-4 py-5 sm:p-6"> 
 
+{ accountlist.length >0 ?accountlist.map((acc,index)=> (
+
+<button key={index} 
+    type="button"
+    className="rounded-full ml-1 mt-1 bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+  >
+    {acc}
+  </button>)):<Loader/>}
+
+</div>
 
    
    
