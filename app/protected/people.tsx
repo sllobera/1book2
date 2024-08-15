@@ -116,14 +116,6 @@ const [selectedind, setIndex] = useState('');
            
               <div className="px-4 py-5 sm:p-6"> 
 
-    { accountlist.length >0 ?accountlist.map((acc,index)=> (
-
-    <button key={index} 
-        type="button"
-        className="rounded-full ml-1 mt-1 bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      >
-        {acc}
-      </button>)):<Loader/>}
 
 </div>
             
