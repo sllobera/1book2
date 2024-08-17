@@ -48,8 +48,8 @@ return[
               <p className="text-xs font-semibold leading-6 text-gray-900">
               
                   <span className="absolute inset-x-0 -top-px bottom-0" />
-                  { name} - (<span className={classNames("" , {'text-blue-600':Number(countvol(pos))>=0,
-                      'text-red-600':Number(countvol(pos))<0,
+                  { name} - (<span className={classNames("" , {'text-grey-600':Number(countvol(pos))>=0,
+                      'text-grey-700':Number(countvol(pos))<0,
              
              
                 })}>{pos.length}</span>)
