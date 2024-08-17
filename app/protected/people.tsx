@@ -11,6 +11,7 @@ import Loader from './loader';
   
   
 var accountlist: any[] = [];
+var accountaccess: any[] = [];
 var people: any[] = [];
 export default function Addpeople() {
   const supabase = createClient();
@@ -54,6 +55,19 @@ const [accid, setAcc] = useState('');
 const [people, setPeople] = useState([{}] as any); 
 const [selectedind, setIndex] = useState('');
 const [selected, setSelected] = useState(people)
+const [accountac,setAccounts] = useState([{}] as any)
+
+useEffect(() => {
+  const getaccs = async () =>{
+    const { data: accs } = await supabase.from("account_access").select().eq("userid",selected.id);
+   console.log("accs "+accs)
+if(accs)
+     setAccounts(accs);
+  }
+
+  getaccs();
+
+},[selected])
   return (
     
     <div className="divide-y divide-gray-200   rounded-lg bg-white shadow">
@@ -141,13 +155,13 @@ const [selected, setSelected] = useState(people)
 
    <div className="px-4 py-5 sm:p-6"> 
 
-{ accountlist.length >0 ?accountlist.map((acc,index)=> (
+{ accountac.length >0 ?accountac.map((opi: any)=> (
 
-<button key={index} 
+<button  
     type="button"
     className="rounded-full ml-1 mt-1 bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
   >
-    {acc}
+    {opi.account}
   </button>)):<Loader/>}
 
 </div>
