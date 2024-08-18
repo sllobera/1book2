@@ -15,6 +15,16 @@ var accountaccess: any[] = [];
 var people: any[] = [];
 export default function Addpeople() {
   const supabase = createClient();
+  const delacc = async (acc: any) => {
+    
+    const { error } = await supabase
+    .from('accounts')
+    .delete().eq( 'accountid', acc )
+    
+    setAcc("");
+    
+    getData();
+      }
   const acacc = async (acc: any) => {
     
 const { error } = await supabase
@@ -110,7 +120,7 @@ if(accs)
     { accountlist.length >0 ?accountlist.map((acc,index)=> (
  <span className="inline-flex items-center gap-x-1 rounded-md bg-blue-50  mx-1 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
         {acc}
-        <button type="button" className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-green-600/20">
+        <button type="button" className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-green-600/20"   onClick={()=>{ delacc(acc); } }>
           <span className="sr-only">Remove</span>
           <svg viewBox="0 0 14 14" className="h-3.5 w-3.5 stroke-green-700/50 group-hover:stroke-green-700/75">
             <path d="M4 4l6 6m0-6l-6 6" />
