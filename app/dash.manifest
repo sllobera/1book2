@@ -1,0 +1,22 @@
+{
+  "name": "Admin Dashboard | KaoS",
+  "short_name": "KAOS",
+  "description": "Admin Dashboard | KaoS",
+  "icons": [
+    {
+      "src": "322.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+     
+    {
+      "src": "512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "dash.kaos.money",
+  "display": "fullscreen",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF"
+}

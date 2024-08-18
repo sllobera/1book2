@@ -70,7 +70,7 @@ const [accountac,setAccounts] = useState([{}] as any)
 useEffect(() => {
   const getaccs = async () =>{
     const { data: accs } = await supabase.from("account_access").select().eq("userid",selected.id);
-   console.log("accs "+accs)
+  
 if(accs)
      setAccounts(accs);
   }
