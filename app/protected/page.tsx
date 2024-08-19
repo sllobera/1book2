@@ -1,6 +1,6 @@
  "use client"
 
-import { DashboardIcon,BarChartIcon ,RowsIcon ,PersonIcon} from '@radix-ui/react-icons'
+import { DashboardIcon,BarChartIcon ,RowsIcon ,PersonIcon,ExitIcon} from '@radix-ui/react-icons'
 import { createClient } from "@/utils/supabase/client";
 
 import { redirect } from "next/navigation";
@@ -14,17 +14,17 @@ import Loader from './loader';
 import Addpeople from './people';
 
 import React, { useEffect, useState } from 'react';
-import Index from '../page';
+
+import { useRouter } from 'next/navigation'
 var useremail=""
 var socket: WebSocket;
 var connected = false;
 var accountlist: any[] = [];
 
-
 export default    function ProtectedPage() {
   const [isload , setLoad] = useState(true);
   const supabase = createClient();
-  const user =  supabase.auth.getUser();
+ 
    
   const [dis, setValue] = React.useState('list');
   const [pep, setPep] = React.useState('addperson');  
@@ -32,11 +32,17 @@ export default    function ProtectedPage() {
   const [positions, setPositions] = useState([]);
   const [total, setTotal] = useState(0);
   const [ accounts, setAccounts] =  useState([] as any);
-
-  if (!user) {
-    return redirect("/login");
-  }
-  
+  const router = useRouter()
+  const signOut = async () => {
+   
+   const { error } = await supabase.auth.signOut()
+   console.log("kerror " + error);
+   
+   router.push("/login");
+ };
+ 
+ 
+   
   const socketCloseListener = (email: string | undefined) => {
        if(!connected){
         
@@ -92,6 +98,11 @@ const socketMessageListener = (event: { data: string; }) => {
 
   const getData = async () => {
     const  { data}  = await supabase.auth.getUser();
+    if(!data.user)
+    {
+      router.push("/login");
+
+    }
     const { data: notes } = await supabase.from('account_access').select("account")
     let opi="";
     if(notes){
@@ -149,6 +160,10 @@ opi+="|"+notes[i]!.account
     
   </ToggleGroup.Root>
    
+  <Toggle.Root className="Toggle ml-2" aria-label="Toggle italic" onClick={signOut}>
+    <ExitIcon  />
+  </Toggle.Root>
+ 
         </div>
       </nav></header>
       </div>
