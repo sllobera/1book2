@@ -21,7 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-     
+     <head>
+
+
+     </head><link rel="manifest" href="/manifest.json" />
       <body className="bg-background text-foreground">
       <Theme accentColor="blue" grayColor="sand" radius="large" scaling="95%">
   
