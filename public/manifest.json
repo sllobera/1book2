@@ -15,7 +15,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "dash.kaos.money",
+  "start_url": "/",
   "display": "fullscreen",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF"
