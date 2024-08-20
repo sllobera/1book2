@@ -202,7 +202,8 @@ opi="|"+notes[0]!.accounts
       </main>
       </div>
 <div className="bg-white min-h-32  fixed  bottom-12 w-full"> 
-  <AdvancedRealTimeChart theme="light" hide_legend={true} hide_side_toolbar={true} enable_publishing={false} toolbar_bg="#f1f3f6" symbol='PEPPERSTONE:NAS100' interval= "30" style='1' height="360" width="100%" ></AdvancedRealTimeChart>></div>
+  <AdvancedRealTimeChart theme="light" hide_legend={true} hide_side_toolbar={true} enable_publishing={false} toolbar_bg="#f1f3f6" symbol='PEPPERSTONE:NAS100' interval= "30" style='1' height="360" width="100%" ></AdvancedRealTimeChart>
+  </div>
       <footer className="w-full border-t bg-white sticky drop-shadow-md  bottom-0 p-4 flex justify-center text-center text-xs">
         <p>
           Powered by{" "}
