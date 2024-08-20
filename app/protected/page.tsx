@@ -139,9 +139,9 @@ opi="|"+notes[0]!.accounts
         <Toggle.Root className="Toggle mr-2" >
 
     
-<ToggleGroup.Item  value="chart" aria-label="Left aligned">
+ 
     <BarChartIcon  />
-    </ToggleGroup.Item>
+   
   </Toggle.Root>
  
      <ToggleGroup.Root
