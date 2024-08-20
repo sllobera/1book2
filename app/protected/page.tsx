@@ -16,7 +16,8 @@ import Addpeople from './people';
 import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation'
-import { AdvancedRealTimeChart } from "react-ts-tradingview-widget";
+
+import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
 var useremail=""
 var socket: WebSocket;
 var connected = false;
@@ -28,6 +29,7 @@ export default    function ProtectedPage() {
  
    
   const [dis, setValue] = React.useState('list');
+  const [chart, setChart] = React.useState('chart');
   const [pep, setPep] = React.useState('addperson');  
   const [equity, setEquity] = useState(444);
   const [positions, setPositions] = useState([]);
@@ -134,8 +136,12 @@ opi="|"+notes[0]!.accounts
          
         <div className="flex items-start lg:flex lg:flex-1 lg:justify-end">
    
-        <Toggle.Root className="Toggle mr-2" aria-label="Toggle italic">
+        <Toggle.Root className="Toggle mr-2" >
+
+    
+<ToggleGroup.Item  value="chart" aria-label="Left aligned">
     <BarChartIcon  />
+    </ToggleGroup.Item>
   </Toggle.Root>
  
      <ToggleGroup.Root
@@ -172,7 +178,7 @@ opi="|"+notes[0]!.accounts
       <div className="flex-1 flex flex-col gap-20   w-full">
       <main className="flex-1 flex flex-col gap-6 w-full">
         {isload ? <Loader/>:""}
-     { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2">
+     { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2 py-2">
   
  { accountlist.map((acc,index)=> (
 <Grid name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit} pl={acc.pl} pos={acc.positions}/>
@@ -201,7 +207,8 @@ opi="|"+notes[0]!.accounts
      </div>}
       </main>
       </div>
-<div className="bg-white min-h-32  fixed  bottom-12 w-full"> 
+
+<div className="bg-white min-h-32  fixed  bottom-2 w-full"> 
   <AdvancedRealTimeChart theme="light" hide_legend={true} hide_side_toolbar={true} enable_publishing={false} toolbar_bg="#f1f3f6" symbol='PEPPERSTONE:NAS100' interval= "30" style='1' height="360" width="100%" ></AdvancedRealTimeChart>
   </div>
       <footer className="w-full border-t bg-white sticky drop-shadow-md  bottom-0 p-4 flex justify-center text-center text-xs">

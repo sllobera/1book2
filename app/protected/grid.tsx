@@ -30,7 +30,7 @@ export default function Grid({ name ,equity,deposit,pos,pl}: { name: string ,equ
   const [selectedind, setIndex] = useState('');
 return[ 
 
-    <div key={name} className={classNames("relative flex border-l-4 mt-3 space-x-3 rounded-lg border  bg-white px-2 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+    <div key={name} className={classNames("relative flex border-l-4 space-x-3 rounded-lg border  bg-white px-2 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
       ,
      {'border-green-600':equity-deposit>=0,
       'border-red-600':equity-deposit<0
