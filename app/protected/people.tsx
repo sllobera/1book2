@@ -15,6 +15,17 @@ var accountaccess: any[] = [];
 var people: any[] = [];
 export default function Addpeople() {
   const supabase = createClient();
+  
+  const upcc = async (acc: any) => {
+    
+    const { error } = await supabase
+    .from('account_access2')
+    .update({accounts:accountac}).eq( 'id', selected.id)
+    
+    setAcc("");
+    
+    getData();
+      }
   const delacc = async (acc: any) => {
     
     const { error } = await supabase
@@ -65,14 +76,14 @@ const [accid, setAcc] = useState('');
 const [people, setPeople] = useState([{}] as any); 
 const [selectedind, setIndex] = useState('');
 const [selected, setSelected] = useState(people)
-const [accountac,setAccounts] = useState([{}] as any)
+const [accountac,setAccounts] = useState([] as any)
 
 useEffect(() => {
   const getaccs = async () =>{
-    const { data: accs } = await supabase.from("account_access").select().eq("userid",selected.id);
+    const { data: accs } = await supabase.from("account_access2").select().eq("id",selected.id);
   
 if(accs)
-     setAccounts(accs);
+     setAccounts(accs[0]!.accounts);
   }
 
   getaccs();
@@ -118,9 +129,9 @@ if(accs)
     <div className="px-4 py-5 sm:p-6"> 
 
     { accountlist.length >0 ?accountlist.map((acc,index)=> (
- <span className="inline-flex items-center gap-x-1 rounded-md bg-blue-50  mx-1 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
+ <span onClick={()=>{  setAccounts([...accountac,acc] );upcc(acc)}} className="inline-flex items-center gap-x-1 rounded-md bg-blue-50  mx-1 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20 hover:bg-blue-600/20 cursor-pointer">
         {acc}
-        <button type="button" className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-green-600/20"   onClick={()=>{ delacc(acc); } }>
+        <button key={index} type="button" className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-green-600/20  "   onClick={()=>{ delacc(acc); } }>
           <span className="sr-only">Remove</span>
           <svg viewBox="0 0 14 14" className="h-3.5 w-3.5 stroke-green-700/50 group-hover:stroke-green-700/75">
             <path d="M4 4l6 6m0-6l-6 6" />
@@ -153,9 +164,9 @@ if(accs)
               value={person}
               className="group relative cursor-default select-none py-2 pl-8 pr-4 text-gray-900 data-[focus]:bg-blue-600 data-[focus]:text-white"
             >
-              <span className="block truncate font-normal group-data-[selected]:font-semibold">{person.first_name +" "+ person.last_name} </span>
+              <span  key={person.id} className="block truncate font-normal group-data-[selected]:font-semibold">{person.first_name +" "+ person.last_name} </span>
 
-              <span className="absolute inset-y-0 left-0 flex items-center pl-1.5 text-blue-600 group-data-[focus]:text-white [.group:not([data-selected])_&]:hidden">
+              <span  key={"pp"+person.id} className="absolute inset-y-0 left-0 flex items-center pl-1.5 text-blue-600 group-data-[focus]:text-white [.group:not([data-selected])_&]:hidden">
                 <CheckIcon aria-hidden="true" className="h-5 w-5" />
               </span>
             </ListboxOption>
@@ -168,9 +179,9 @@ if(accs)
 
    <div className="px-4 py-5 sm:p-6"> 
 
-{ accountac.length >0 ?accountac.map((opi: any)=> (
- <span className="inline-flex items-center gap-x-1 rounded-md bg-green-50  mx-1 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
- {opi.account}
+{ accountac.length >0 ?accountac.map((opi: any,index:number)=> (
+ <span key={index} className="inline-flex items-center gap-x-1 rounded-md bg-green-50  mx-1 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+ {opi}
  <button type="button" className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-green-600/20">
    <span className="sr-only">Remove</span>
    <svg viewBox="0 0 14 14" className="h-3.5 w-3.5 stroke-green-700/50 group-hover:stroke-green-700/75">

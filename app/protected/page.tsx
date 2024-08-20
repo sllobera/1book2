@@ -103,13 +103,13 @@ const socketMessageListener = (event: { data: string; }) => {
       router.push("/login");
 
     }
-    const { data: notes } = await supabase.from('account_access').select("account")
+    const { data: notes } = await supabase.from('account_access2').select("accounts").eq("id",data.user?.id)
+
     let opi="";
     if(notes){
-      for(var i=0;i<notes.length;i++)
-   {
-opi+="|"+notes[i]!.account
-   }
+   
+opi="|"+notes[0]!.accounts
+  
     socketCloseListener(data.user?.email+"+"+opi)
     }
   }
