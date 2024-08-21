@@ -2,9 +2,9 @@
 
 
 import dynamic from "next/dynamic";
-import { AdvancedRealTimeChart } from "react-ts-tradingview-widget";
+import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
 const SymbolOverviewNoSSR = dynamic(
-  () => import("react-ts-tradingview-widget").then((w) => w.SymbolOverview),
+  () => import("react-ts-tradingview-widgets").then((w) => w.SymbolOverview),
   {
     ssr: false,
   }
