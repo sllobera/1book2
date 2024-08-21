@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, memo } from 'react';
 
 function TradingViewWidget() {
-  const container = useRef();
+  const container = useRef<any>()
 
   useEffect(
     () => {
@@ -26,7 +26,9 @@ function TradingViewWidget() {
           "calendar": false,
           "support_host": "https://www.tradingview.com"
         }`;
+       
       container.current.appendChild(script);
+  
     },
     []
   );
