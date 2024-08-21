@@ -14,7 +14,7 @@ function TradingViewWidget() {
         {
           "width": "100%",
           "height": "360",
-          "symbol": "NASDAQ:NDX",
+          "symbol": "PEPPERSTONE:NAS100",
           "interval": "30",
           "timezone": "Etc/UTC",
           "theme": "light",
