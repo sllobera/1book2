@@ -84,7 +84,10 @@ button {
 input:focus {
   outline-width: 0;
 }
-
+.tradingview-widget-copyright
+{
+  display: none
+}
 @layer base {
   :root {
     --background: 200 20% 98%;

@@ -60,7 +60,7 @@ return[
                 
               </p>
               <p className=" flex text-xs leading-5 text-green-800">
-                <a href={`mailto:${equity}`} className="relative truncate hover:underline text-gray-900">
+                <a href={"#"} className="relative truncate hover:underline text-gray-900">
                   {format1(equity)} - (<span className={classNames("" , {'text-blue-600':Number(countvol(pos))>=0,
                   'text-red-600':Number(countvol(pos))<0,
              
@@ -72,14 +72,14 @@ return[
           </div>
           <div className="flex shrink-0 items-center gap-x-4">
             <div className="sm:flex sm:flex-col sm:items-end">
-              <p className={classNames(" text-xs leading-5 ",
+              <p className={classNames(" text-xs leading-5 text-right",
                   {'text-green-600':pl>=0,
                    'text-red-600':pl<0
              
              
                   })}>{"$"+format1(pl)}</p>
               {equity ? (
-                <p className={classNames(" text-xs leading-5 ",
+                <p className={classNames(" text-xs leading-5 text-right",
                   {'text-green-600':equity-deposit>=0,
                    'text-red-600':equity-deposit<0
              

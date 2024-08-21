@@ -68,7 +68,7 @@ return[
           </div>
           <div className="flex shrink-0 items-start gap-x-4">
             <div className="sm:flex sm:flex-col sm:items-end">
-            <p className={classNames(" text-xs leading-5 ",
+            <p className={classNames(" text-xs leading-5 text-right",
                   {'text-green-600':pl>=0,
                    'text-red-600':pl<0
              
@@ -77,7 +77,7 @@ return[
            {"$"+format1(pl)}
                 </p>
               {equity ? (
-                <p className={classNames(" text-xs leading-5 ",
+                <p className={classNames(" text-xs leading-5 text-right",
                   {'text-green-600':equity-deposit>=0,
                    'text-red-600':equity-deposit<0
              

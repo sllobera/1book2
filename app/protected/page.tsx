@@ -12,12 +12,12 @@ import Grid from './grid';
 import List from './list';
 import Loader from './loader';
 import Addpeople from './people';
+import TradingViewWidget from './chart';
 
 import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation'
 
-import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
 var useremail=""
 var socket: WebSocket;
 var connected = false;
@@ -206,11 +206,12 @@ opi="|"+notes[0]!.accounts
      
      </div>}
     
-
-<div className="bg-white min-h-32  absolute  bottom-2 w-full"> 
-  <AdvancedRealTimeChart theme="light" hide_legend={true} hide_side_toolbar={true} enable_publishing={false} toolbar_bg="#f1f3f6" symbol='PEPPERSTONE:NAS100' interval= "30" style='1' height="360" width="100%" ></AdvancedRealTimeChart>
+<div className="bg-white p-5 bottom-2 w-full"> 
+  <TradingViewWidget></TradingViewWidget>
+ {/*} <AdvancedRealTimeChart theme="light" hide_legend={true} hide_side_toolbar={true} enable_publishing={false} toolbar_bg="#f1f3f6" symbol='PEPPERSTONE:NAS100' interval= "30" style='1' height="360" width="100%" ></AdvancedRealTimeChart>*/}
   </div>  </main>
       </div>
+
       <footer className="w-full border-t bg-white sticky drop-shadow-md  bottom-0 p-4 flex justify-center text-center text-xs">
         <p>
           Powered by{" "}
