@@ -9,11 +9,17 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 import Loader from './loader';
   
-  
+ 
 var accountlist: any[] = [];
 var accountaccess: any[] = [];
 var people: any[] = [];
 export default function Addpeople() {
+  const handleRemove = (id: any) => {
+    const newPeople = accountac.filter((acc: any) => acc !== id);
+  
+    setAccounts( newPeople);
+    upcc(id);
+  };
   const supabase = createClient();
   
   const upcc = async (acc: any) => {
@@ -182,7 +188,7 @@ if(accs)
 { accountac.length >0 ?accountac.map((opi: any,index:number)=> (
  <span key={index} className="inline-flex items-center gap-x-1 rounded-md bg-green-50  mx-1 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
  {opi}
- <button type="button" className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-green-600/20">
+ <button type="button" className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-green-600/20"   onClick={()=>{ handleRemove(opi); } }>
    <span className="sr-only">Remove</span>
    <svg viewBox="0 0 14 14" className="h-3.5 w-3.5 stroke-green-700/50 group-hover:stroke-green-700/75">
      <path d="M4 4l6 6m0-6l-6 6" />
