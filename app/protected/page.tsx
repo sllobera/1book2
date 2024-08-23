@@ -20,7 +20,7 @@ import { useRouter } from 'next/navigation'
 
 var useremail=""
 var socket: WebSocket;
-var connected = false;
+
 var accountlist: any[] = [];
 
 export default    function ProtectedPage() {
@@ -29,13 +29,18 @@ export default    function ProtectedPage() {
  
    
   const [dis, setValue] = React.useState('list');
-  const [chart, setChart] = React.useState('chart');
+  const [connected,setConnected]=useState(true);
+  const [chart, setChart] = React.useState(true);
   const [pep, setPep] = React.useState('addperson');  
   const [equity, setEquity] = useState(444);
   const [positions, setPositions] = useState([]);
   const [total, setTotal] = useState(0);
   const [ accounts, setAccounts] =  useState([] as any);
   const router = useRouter()
+  
+  const showchart = async () => {
+   chart ? setChart(false):setChart(true)
+  };
   const signOut = async () => {
    
    const { error } = await supabase.auth.signOut()
@@ -47,21 +52,26 @@ export default    function ProtectedPage() {
  
    
   const socketCloseListener = (email: string | undefined) => {
-       if(!connected){
-        
-   
+    setConnected(true);
     
     socket = new WebSocket('WSS://www.kaostrading.com/sock?'+email
     );
     socket.addEventListener('message', socketMessageListener);
     socket.addEventListener('open', socketOpenListener);
- //  socket.addEventListener('close', socketCloseListenerp);
+   socket.addEventListener('close', socketCloseListenerp);
 
-}}
+}
 
 const socketOpenListener = () => {
   console.log('Connected!!');
-connected = true;
+setConnected(true);
+  
+};
+
+const socketCloseListenerp = () => {
+  console.log('disconected!!');
+  
+setConnected(false);
   
 };
 const socketMessageListener = (event: { data: string; }) => {
@@ -74,17 +84,9 @@ const socketMessageListener = (event: { data: string; }) => {
     }
     else
     {
-     //   var n     = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].name;
-       // var ws    = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].weekstart;
-        //ar inn   = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].index;
-        //var margd = accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)].margindiv;
-       // accountlist.splice(accountlist.findIndex(x => x.account === JSON.parse(event.data).account), 1);
 
         accountlist[accountlist.findIndex(x => x.account === JSON.parse(event.data).account)]=(JSON.parse(event.data));
-        //accountlist[accountlist.length - 1].name      = n;
-        //accountlist[accountlist.length - 1].index     = inn;
-        //accountlist[accountlist.length - 1].weekstart = ws;
-        //accountlist[accountlist.length - 1].margindiv = margd;
+      
     }
   setEquity(Number(JSON.parse(event.data).equity));
   setEquity(Number(JSON.parse(event.data).equity));
@@ -94,8 +96,7 @@ const socketMessageListener = (event: { data: string; }) => {
   setAccounts(opi);
   
    }
- // useEffect(() => socketCloseListener(), [])
- 
+
  useEffect(() => {
   setLoad(true)
 
@@ -117,7 +118,7 @@ opi="|"+notes[0]!.accounts
     }
   }
   getData().then(response =>{setLoad(false)})
-}, [])
+}, [connected])
  
 
   return (
@@ -136,7 +137,7 @@ opi="|"+notes[0]!.accounts
          
         <div className="flex items-start lg:flex lg:flex-1 lg:justify-end">
    
-        <Toggle.Root className="Toggle mr-2" >
+        <Toggle.Root className="Toggle mr-2"  onClick={showchart}>
 
     
  
@@ -178,7 +179,7 @@ opi="|"+notes[0]!.accounts
       <div className="flex-1 flex flex-col gap-20   w-full">
       <main className="flex-1 flex flex-col gap-6 w-full">
         {isload ? <Loader/>:""}
-     { dis =="grid" && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2 py-2">
+     { dis =="grid"  && connected && <div key="name" className="grid  gap-4 grid-cols-2 md:grid-cols-4 px-2 py-2">
   
  { accountlist.map((acc,index)=> (
 <Grid name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit} pl={acc.pl} pos={acc.positions}/>
@@ -188,7 +189,7 @@ opi="|"+notes[0]!.accounts
       </div>}
       
       
-      { dis =="list" && <div key="name" className="grid   grid-cols-1 md:grid-cols-1">
+      { dis =="list" && connected && <div key="name" className="grid   grid-cols-1 md:grid-cols-1">
 
   { accountlist.map((acc,index) => (
  <List name={acc.account} equity={acc.equity} key={index} deposit={acc.deposit } pl={acc.pl} pos={acc.positions}/>
@@ -207,7 +208,7 @@ opi="|"+notes[0]!.accounts
      </div>}
     
 <div className="bg-white p-5 bottom-2 w-full"> 
-  <TradingViewWidget></TradingViewWidget>
+ {chart ? <TradingViewWidget></TradingViewWidget>:""}
  {/*} <AdvancedRealTimeChart theme="light" hide_legend={true} hide_side_toolbar={true} enable_publishing={false} toolbar_bg="#f1f3f6" symbol='PEPPERSTONE:NAS100' interval= "30" style='1' height="360" width="100%" ></AdvancedRealTimeChart>*/}
   </div>  </main>
       </div>
