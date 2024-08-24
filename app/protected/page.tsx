@@ -137,7 +137,7 @@ opi="|"+notes[0]!.accounts
          
         <div className="flex items-start lg:flex lg:flex-1 lg:justify-end">
    
-        <Toggle.Root className="Toggle mr-2"  onClick={showchart}>
+        <Toggle.Root className="Toggle2 mr-2"  onClick={showchart}>
 
     
  
