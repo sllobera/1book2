@@ -13,12 +13,14 @@ import Loader from './loader';
 var accountlist: any[] = [];
 var accountaccess: any[] = [];
 var people: any[] = [];
+
 export default function Addpeople() {
+  
   const handleRemove = (id: any) => {
     const newPeople = accountac.filter((acc: any) => acc !== id);
   
-    setAccounts( newPeople);
-    upcc(id);
+    setAccounts(newPeople);
+  
   };
   const supabase = createClient();
   
@@ -83,7 +85,9 @@ const [people, setPeople] = useState([{}] as any);
 const [selectedind, setIndex] = useState('');
 const [selected, setSelected] = useState(people)
 const [accountac,setAccounts] = useState([] as any)
-
+useEffect(() => {
+  upcc(selected.id); // This will be executed when the state changes
+}, [accountac]);
 useEffect(() => {
   const getaccs = async () =>{
     const { data: accs } = await supabase.from("account_access2").select().eq("id",selected.id);
@@ -114,7 +118,6 @@ if(accs)
           onChange={e => setAcc(e.target.value)} // ...
             id="email"
             name="email"
-            type="email"
             placeholder="Account Number"
             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
           /> 
@@ -135,7 +138,7 @@ if(accs)
     <div className="px-4 py-5 sm:p-6"> 
 
     { accountlist.length >0 ?accountlist.map((acc,index)=> (
- <span onClick={()=>{  setAccounts([...accountac,acc] );upcc(acc)}} className="inline-flex items-center gap-x-1 rounded-md bg-blue-50  mx-1 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20 hover:bg-blue-600/20 cursor-pointer">
+ <span onClick={()=>{  setAccounts([...accountac,acc] )}} className="inline-flex items-center gap-x-1 rounded-md bg-blue-50  mx-1 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20 hover:bg-blue-600/20 cursor-pointer">
         {acc}
         <button key={index} type="button" className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-green-600/20  "   onClick={()=>{ delacc(acc); } }>
           <span className="sr-only">Remove</span>
