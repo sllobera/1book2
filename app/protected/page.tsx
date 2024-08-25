@@ -36,6 +36,7 @@ export default    function ProtectedPage() {
   const [positions, setPositions] = useState([]);
   const [total, setTotal] = useState(0);
   const [ accounts, setAccounts] =  useState([] as any);
+  const [email, setEmail] = React.useState("" as any);
   const router = useRouter()
   
   const showchart = async () => {
@@ -107,6 +108,9 @@ const socketMessageListener = (event: { data: string; }) => {
       router.push("/login");
 
     }
+    else{
+      setEmail(data.user.email)
+    }
     const { data: notes } = await supabase.from('account_access2').select("accounts").eq("id",data.user?.id)
 
     let opi="";
@@ -115,7 +119,9 @@ const socketMessageListener = (event: { data: string; }) => {
 opi="|"+notes[0]!.accounts
   
     socketCloseListener(data.user?.email+"+"+opi)
+     
     }
+    
   }
   getData().then(response =>{setLoad(false)})
 }, [connected])
@@ -199,7 +205,7 @@ opi="|"+notes[0]!.accounts
        </div>}
        
   
-       { dis =="addperson" && <div key="addpersoj" className="p-10">
+       { dis =="addperson" && (email=="sllobera@gmail.com" || email=="mb@kaostrading.com")&& <div key="addpersoj" className="p-10">
 
 { 
 <Addpeople/>}
